@@ -50,8 +50,8 @@ class WeatherBit_Caller:
             response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
             return response.json()
         except requests.exceptions.RequestException as e:
-            return None
-
+            print(f"An error occurred: {e}")  
+            return None;
 
 
 api = WeatherBit_Caller()
