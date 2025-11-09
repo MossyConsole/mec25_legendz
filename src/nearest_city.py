@@ -25,16 +25,22 @@ def list_of_nearby_areas_with_api(lat, longi, list, ttk, tab):
             data = api.request(i/2+lat, j/2+longi)
             print(location)
             print(data)
-            if not(location in list) and data["alerts"] != []:
-                list.append([location, data["alerts"][0]["severity"]])
-                m = ttk.Label(tab, text = location + " " + data["alerts"][0]["severity"], font=("Browallia new", 40))
-                m.pack(padx=100, pady=10)
+            if not(location in list):
+                if data["alerts"] != []:
+                    m = ttk.Label(tab, text = str(location) + " " + data["alerts"][0]["severity"], font=("Browallia new", 8))
+                    m.pack(padx=100, pady=4)
+                    m.update_idletasks()
+                else:
+                    m = ttk.Label(tab, text = str(location) + " " + "Safe", font=("Browallia new", 8))
+                    m.pack(padx=100, pady=4)
+                    m.update_idletasks()
+                list.append(location)
                 
 
 
 def nearest_tab(ttk, tab):
     ttk.Label(tab, 
-            text = "Nearby Areas", font=("Browallia new", 24)).pack(padx=100, pady=(0,100))
+            text = "Nearby Areas", font=("Browallia new", 24)).pack(padx=100, pady=(0,20))
     ttk.Button(tab, text="Generate", command=lambda : nearest_city_create(ttk, tab)).pack(padx = "100", pady = 10)
     
 
