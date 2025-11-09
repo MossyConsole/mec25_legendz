@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import json
+from api_caller import WeatherBit_Caller
 
 mock_alert_json = '''{
     "alerts":[
@@ -34,50 +35,77 @@ mock_alert_json = '''{
 
 def weather_tab(ttk, tab):
 
-    # Grab JSON Data from API
-    json_data = mock_alert_json
-    
-    # Load JSON Data from API return
-    data = json.loads(json_data)
-    # print(data["alerts"])
+    ttk.Button(tab, text="Refresh", command=lambda : update_labels()).pack(padx = "100", pady = 10)
 
-    # Parse and deal with data
-    ttk.Label(tab, text = f"{data["city_name"]}, {data["country_code"]}", 
-              font = ("Brownallia New", 16, "bold")).pack(padx=10, pady=10)
-    ttk.Label(tab, text = "Alerts:", font = ("Browallia New", 16, "bold")).pack(padx=10, pady=10)
+    location_label = ttk.Label(tab, font = ("Brownallia New", 16, "bold"))
+    location_label.pack(padx=10, pady=10)
 
-    alerts = data["alerts"] 
-    if (len(alerts) != 0):
-        for alert in alerts:
+    alerts_label = ttk.Label(tab, font = ("Browallia New", 16, "bold"))
+    alerts_label.pack(padx=10, pady=10)
 
-            # Pre-process regions to a good string
-            regions_str = ""
-            for region in alert["regions"]:
-                regions_str += f"\n\t\t{region.strip()}"
+    alert_data_label = ttk.Label(tab, anchor="w")
+    alert_data_label.pack(padx=10, pady=10, fill="x", anchor="w")
 
-            # Pro-process desc to a good string
-            desc = alert["description"]
-            desc = desc.split("*")
-            for str_index in range(len(desc)):
-                string = desc[str_index]
-                lim = 200
-                if len(string) >= lim:
-                    space_lim = string.rfind(" ", 0, lim)
-                    desc.insert(str_index, string[0:space_lim])
-                    desc[str_index+1] = string[lim+1:]
 
-            desc_str = ""
-            for desc_str_part in desc:
-                desc_str += f"\t{desc_str_part}\n"
 
-            show_str = f"""
-                        {alert["title"]}\n
-                        Severity: {alert["severity"]}\n
-                        Regions:{regions_str}
-                        {desc_str}"""
+    def update_labels():
+
+        # Grab lat, lon
+        location_file = open("sunny_data/location.txt", "r")
+        lat, lon = tuple(location_file.read().split(";"))
         
-            ttk.Label(tab, text = show_str).pack(padx=10, pady=10)
+        # Grab JSON Data from API if possible
+        weatherbit = WeatherBit_Caller()
+        json_data = weatherbit.request(lat, lon)
+        
+        # Store if possible
+        if json_data != None:
+            alert_data_file = open("sunny_data/alert.txt", "w") 
+            alert_data_file.write(str(json_data))
+            alert_data_file.close()
+        
+        # Load JSON Data from file
+        data_file = open("sunny_data/alert.txt", "r")
+        data = json.loads(str(data_file.read()).replace("\'", "\"").replace("\\n", ""))
 
-    else:
-        ttk.Label(tab, text = "None. Have a Sunny Day.").pack(padx=10, pady=10)
-    
+        # Parse and deal with data
+        location_label.config(text = f"{data["city_name"]}, {data["country_code"]}")
+        alerts_label.config(text = "Alerts:")
+
+        alerts = data["alerts"] 
+        if (len(alerts) != 0):
+            for alert in alerts:
+
+                # Pre-process regions to a good string
+                regions_str = ""
+                for region in alert["regions"]:
+                    regions_str += f"\n\t\t{region.strip()}"
+
+                # Pre-process desc to a good string
+                desc = alert["description"]
+                desc = desc.split("* ")
+                str_index = 0
+                while str_index < len(desc):
+                    string = desc[str_index]
+                    lim = 160
+                    if len(string) >= lim:
+                        space_lim = string.rfind(" ", 0, lim)
+                        desc.insert(str_index, string[0:space_lim])
+                        desc[str_index+1] = f"{string[space_lim+1:]}"
+                    str_index += 1
+
+                desc_str = desc[1]
+                for desc_str_part in desc[2:]:
+                    desc_str += f"\n\t\t{desc_str_part}"
+
+                show_str = f"""
+                            {alert["title"]}\n
+                            Severity: {alert["severity"]}\n
+                            Regions:{regions_str}\n
+                            {desc_str}"""
+                    
+                alert_data_label.config(text = show_str)
+        else:
+            alert_data_label.config(text = "None. Have a Sunny Day.")
+
+    update_labels()

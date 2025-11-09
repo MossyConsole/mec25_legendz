@@ -4,23 +4,27 @@ import geocoder
 from api_caller import Meteo_Caller, WeatherBit_Caller
 from welcome_tab import welcome_tab
 from weather_tab import weather_tab
+from nearest_city import nearest_tab
 
 class MyTkinterApp:
     def __init__(self, root):
         self.root = root
-        root.title("Weather App")
+        root.title("SunnyDay")
 
         tabControl = ttk.Notebook(root)
 
         tab1 = ttk.Frame(tabControl)
         tab2 = ttk.Frame(tabControl)
+        tab3 = ttk.Frame(tabControl)
 
         tabControl.add(tab1, text ='Welcome')
-        tabControl.add(tab2, text ='Tab 2')
+        tabControl.add(tab2, text ='Your Advisories')
+        tabControl.add(tab3, text ='Nearby Advisories')
         tabControl.pack(expand = 1, fill ="both")
 
         welcome_tab(ttk, tab1)
         weather_tab(ttk, tab2)
+        nearest_tab(ttk, tab3)
 
         # self.label_text = tk.StringVar()
         # self.label_text.set("Natural Disaster Detector")
