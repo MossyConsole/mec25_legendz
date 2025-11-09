@@ -3,10 +3,10 @@ import tkinter as tk
 class MyTkinterApp:
     def __init__(self, master):
         self.master = master
-        master.title("Simple Tkinter App")
+        master.title("Weather App")
 
         self.label_text = tk.StringVar()
-        self.label_text.set("Hello, Tkinter!")
+        self.label_text.set("Natural Disaster Detector")
 
         self.label = tk.Label(master, textvariable=self.label_text, font=("Arial", 16))
         self.label.pack(pady=20)
@@ -19,5 +19,6 @@ class MyTkinterApp:
 
 if __name__ == "__main__":
     root = tk.Tk()
+    root.minsize(600, 400) 
     app = MyTkinterApp(root)
     root.mainloop()
