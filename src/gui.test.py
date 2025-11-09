@@ -1,4 +1,5 @@
 import tkinter as tk
+import geocoder
 
 class MyTkinterApp:
     def __init__(self, master):
@@ -15,7 +16,8 @@ class MyTkinterApp:
         self.button.pack(pady=10)
 
     def on_button_click(self):
-        self.label_text.set("Button clicked!")
+        g = geocoder.ip('me')
+        self.label_text.set(g.latlng)
 
 if __name__ == "__main__":
     root = tk.Tk()
