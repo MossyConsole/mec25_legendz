@@ -2,10 +2,11 @@ import openmeteo_requests
 
 import pandas as pd
 import requests_cache
+import requests
 from retry_requests import retry
 
 
-class Api_Caller:  
+class Meteo_Caller:  
     def request(self, lat, longi):
         cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
         retry_session = retry(cache_session, retries = 5, backoff_factor = 0.2)
@@ -41,9 +42,20 @@ class Api_Caller:
         hourly_dataframe = pd.DataFrame(data = hourly_data)
         print("\nHourly data\n", hourly_dataframe)
 
+class WeatherBit_Caller:
+    def request(self, lat, longi):
+        api_url = "https://api.weatherbit.io/v2.0/alerts?lat=" + str(lat) + "&lon=" + str(longi) + "&key=API_KEY"
+        try:
+            response = requests.get(api_url)
+            response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            return None
 
-api = Api_Caller()
-api.print_first_response(api.request(50, 50))
+
+
+api = WeatherBit_Caller()
+print(api.request(50, 50))
 
 # Setup the Open-Meteo API client with cache and retry on error
 
