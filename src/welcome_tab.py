@@ -19,7 +19,7 @@ def welcome_tab(ttk, tab):
     ttk.Button(tab, text="Use Custom Location", command=lambda : set_to_custom(custom, locText)).pack(padx = "100", pady = 10)
     nty = ttk.Entry(tab, textvariable=custom, width=100)
     nty.pack(padx = "200", pady = 10)
-    nty.insert(0, "City, Province/State, Country...")
+    nty.insert(0, "City, Province/State, Country")
     nty.config(foreground='grey')
 
     def on_focus_in(event):
@@ -30,7 +30,7 @@ def welcome_tab(ttk, tab):
 
     def on_focus_out(event):
         if not nty.get():
-            nty.insert(0, "City, Province/State, Country...")
+            nty.insert(0, "City, Province/State, Country")
             nty.config(foreground='grey')
 
     nty.bind("<FocusIn>", on_focus_in)
@@ -53,6 +53,9 @@ def set_to_current(locText):
 
 
 def set_to_custom(custom, locText):
+    if (custom.get() == "City, Province/State, Country"):
+        locText.config(text = "Couldn't set location with input: " + custom.get())
+        return
     loc = Nominatim(user_agent="SunnySide")
     getLoc = loc.geocode(custom.get())
     if (getLoc == None):
