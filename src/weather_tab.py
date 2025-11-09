@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import json
+from api_caller import WeatherBit_Caller
 
 mock_alert_json = '''{
     "alerts":[
@@ -34,17 +35,23 @@ mock_alert_json = '''{
 
 def weather_tab(ttk, tab):
 
-    # Grab JSON Data from API if possible
-    json_data = mock_alert_json
-    # if 
-
-
-    # alert_data_file = open("../sunny_data/alert.txt") 
-
+    # Grab lat, lon
+    location_file = open("sunny_data/location.txt", "r")
+    lat, lon = tuple(location_file.read().split(";"))
     
-    # Load JSON Data from API return
-    data = json.loads(json_data)
-    # print(data["alerts"])
+    # Grab JSON Data from API if possible
+    weatherbit = WeatherBit_Caller()
+    json_data = weatherbit.request(lat, lon)
+    
+    # Store if possible
+    if json_data != None:
+        alert_data_file = open("sunny_data/alert.txt", "w") 
+        alert_data_file.write(str(json_data))
+        alert_data_file.close()
+    
+    # Load JSON Data from file
+    data_file = open("sunny_data/alert.txt", "r")
+    data = json.loads(str(data_file.read()).replace("\'", "\""))
 
     # Parse and deal with data
     ttk.Label(tab, text = f"{data["city_name"]}, {data["country_code"]}", 
