@@ -44,7 +44,7 @@ class Meteo_Caller:
 
 class WeatherBit_Caller:
     def request(self, lat, longi):
-        api_url = "https://api.weatherbit.io/v2.0/alerts?lat=" + str(lat) + "&lon=" + str(longi) + "&key=API_KEY"
+        api_url = "https://api.weatherbit.io/v2.0/alerts?lat=" + str(lat) + "&lon=" + str(longi) + "&key=c07bcff2ac0b470b9f392f724847331c"
         try:
             response = requests.get(api_url)
             response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
