@@ -34,8 +34,13 @@ mock_alert_json = '''{
 
 def weather_tab(ttk, tab):
 
-    # Grab JSON Data from API
+    # Grab JSON Data from API if possible
     json_data = mock_alert_json
+    # if 
+
+
+    # alert_data_file = open("../sunny_data/alert.txt") 
+
     
     # Load JSON Data from API return
     data = json.loads(json_data)
@@ -57,26 +62,28 @@ def weather_tab(ttk, tab):
 
             # Pro-process desc to a good string
             desc = alert["description"]
-            desc = desc.split("*")
-            for str_index in range(len(desc)):
+            desc = desc.split("* ")
+            str_index = 0
+            while str_index < len(desc):
                 string = desc[str_index]
-                lim = 200
+                lim = 160
                 if len(string) >= lim:
                     space_lim = string.rfind(" ", 0, lim)
                     desc.insert(str_index, string[0:space_lim])
-                    desc[str_index+1] = string[lim+1:]
+                    desc[str_index+1] = f"{string[space_lim+1:]}"
+                str_index += 1
 
-            desc_str = ""
-            for desc_str_part in desc:
-                desc_str += f"\t{desc_str_part}\n"
+            desc_str = desc[1]
+            for desc_str_part in desc[2:]:
+                desc_str += f"\n\t\t{desc_str_part}"
 
             show_str = f"""
                         {alert["title"]}\n
                         Severity: {alert["severity"]}\n
-                        Regions:{regions_str}
+                        Regions:{regions_str}\n
                         {desc_str}"""
         
-            ttk.Label(tab, text = show_str).pack(padx=10, pady=10)
+            ttk.Label(tab, text = show_str, anchor="w", justify="left").pack(padx=10, pady=10, fill="x", anchor="w")
 
     else:
         ttk.Label(tab, text = "None. Have a Sunny Day.").pack(padx=10, pady=10)
