@@ -8,12 +8,21 @@ It must be run at the root directory level of the cloned repo, and not within sr
 
 
 Dependencies:
-geocoder
-geopy
-pandas
-requests
-requests_cache, 
-retry_requests, 
-weatherbit
-tkinter
-json
+
+- geocoder
+
+- geopy
+
+- pandas
+
+- requests
+
+- requests_cache, 
+
+- retry_requests, 
+
+- tkinter
+
+- json
+
+- openmeteo_requests
