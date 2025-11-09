@@ -52,7 +52,7 @@ def nearest_city_create(ttk, tab):
     ttk.Button(tab, text="Generate", command=lambda : nearest_city_create(ttk, tab)).pack(padx = "100", pady = 10)  
     
     
-    file = open("sunny_data\location.txt", "r")
+    file = open("sunny_data/location.txt", "r")
     latlongtext = file.readline();
     latlongarr = latlongtext.split(";")
     lat = float(latlongarr[0])
