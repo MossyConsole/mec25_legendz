@@ -43,7 +43,7 @@ def nearest_tab(ttk, tab):
 
 def nearest_city_create(ttk, tab):
     
-    file = open("sunny_data\location.txt", "r")
+    file = open("sunny_data/location.txt", "r")
     latlongtext = file.readline();
     latlongarr = latlongtext.split(";")
     lat = float(latlongarr[0])
