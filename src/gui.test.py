@@ -3,6 +3,7 @@ from tkinter import ttk
 import geocoder
 from api_caller import Meteo_Caller, WeatherBit_Caller
 from welcome_tab import welcome_tab
+from weather_tab import weather_tab
 
 class MyTkinterApp:
     def __init__(self, root):
@@ -19,13 +20,7 @@ class MyTkinterApp:
         tabControl.pack(expand = 1, fill ="both")
 
         welcome_tab(ttk, tab1)
-
-        ttk.Label(tab2,
-            text ="Lets dive into the\
-            world of computers").grid(column = 0,
-                                    row = 0, 
-                                    padx = 30,
-                                    pady = 30)
+        weather_tab(ttk, tab2)
 
         # self.label_text = tk.StringVar()
         # self.label_text.set("Natural Disaster Detector")

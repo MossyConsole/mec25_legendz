@@ -43,7 +43,7 @@ def set_to_current(locText):
     if (g.latlng == None):
         locText.config(text = "Couldnt't get address")
         return
-    file = open("location.txt", "w")
+    file = open("../sunny_data/location.txt", "w")
     file.write(str(latlng[0]))
     file.write(";")
     file.write(str(latlng[1]))
