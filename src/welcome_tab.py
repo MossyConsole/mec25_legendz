@@ -16,9 +16,25 @@ def welcome_tab(ttk, tab):
             text = "You Havent Set Your Location", font=("Browallia new", 16))
     locText.pack(padx=100, pady = 10)
     ttk.Button(tab, text="Use System Location", command=lambda : set_to_current(locText)).pack(padx = "100", pady = 10)
-    ttk.Button(tab, text="Use Custom Location", command=lambda : set_to_custom(custom, locText)).pack(padx = "200", pady = 10)
-    nty = ttk.Entry(tab, textvariable=custom)
-    nty.pack(padx = "100", pady = 10)
+    ttk.Button(tab, text="Use Custom Location", command=lambda : set_to_custom(custom, locText)).pack(padx = "100", pady = 10)
+    nty = ttk.Entry(tab, textvariable=custom, width=100)
+    nty.pack(padx = "200", pady = 10)
+    nty.insert(0, "City, Province/State, Country...")
+    nty.config(foreground='grey')
+
+    def on_focus_in(event):
+        print(nty.cget('foreground'))
+        if str(nty.cget('foreground')) == 'grey':
+            nty.delete(0, tk.END)
+            nty.config(foreground='black')
+
+    def on_focus_out(event):
+        if not nty.get():
+            nty.insert(0, "City, Province/State, Country...")
+            nty.config(foreground='grey')
+
+    nty.bind("<FocusIn>", on_focus_in)
+    nty.bind("<FocusOut>", on_focus_out)
 
     
 def set_to_current(locText):
@@ -48,3 +64,4 @@ def set_to_custom(custom, locText):
     file.write(str(getLoc.longitude))
     file.close();
     locText.config(text = "Location set to: " + getLoc.address)
+
