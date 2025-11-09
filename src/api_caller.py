@@ -2,7 +2,7 @@ import requests
 
 
 def generate_url(lat, longi):
-    return "https://api.open-meteo.com/v1/forecast?latitude=" + str(lat) + "&longitude=" + str(longi) + "&hourly=temperature_2m&bounding_box=-90,-180,90,180"
+    return "https://api.open-meteo.com/v1/forecast?latitude=" + str(lat) + "&longitude=" + str(longi) + "&hourly=temperature_2m"
 
 def print_results(lat, longi):
     try:
