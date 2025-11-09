@@ -17,9 +17,9 @@ Dependencies:
 
 - requests
 
-- requests_cache, 
+- requests_cache
 
-- retry_requests, 
+- retry_requests
 
 - tkinter
 
