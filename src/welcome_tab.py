@@ -53,7 +53,7 @@ def set_to_current(locText):
 
 
 def set_to_custom(custom, locText):
-    loc = Nominatim(user_agent="Geopy Library")
+    loc = Nominatim(user_agent="SunnySide")
     getLoc = loc.geocode(custom.get())
     if (getLoc == None):
         locText.config(text = "Couldn't set location with input: " + custom.get())
