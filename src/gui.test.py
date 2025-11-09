@@ -9,7 +9,7 @@ from nearest_city import nearest_tab
 class MyTkinterApp:
     def __init__(self, root):
         self.root = root
-        root.title("Weather App")
+        root.title("SunnyDay")
 
         tabControl = ttk.Notebook(root)
 
