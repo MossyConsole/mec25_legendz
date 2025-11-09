@@ -43,7 +43,7 @@ def weather_tab(ttk, tab):
     alerts_label = ttk.Label(tab, font = ("Browallia New", 16, "bold"))
     alerts_label.pack(padx=10, pady=10)
 
-    alert_data_label = ttk.Label(tab, anchor="w")
+    alert_data_label = ttk.Label(tab, font = ("Browallia New", 10), anchor="w")
     alert_data_label.pack(padx=10, pady=10, fill="x", anchor="w")
 
 
@@ -105,7 +105,7 @@ def weather_tab(ttk, tab):
                             Regions:{regions_str}\n
                             {desc_str}"""
                     
-                alert_data_label.config(text = alert_data_label.text + show_str)
+                alert_data_label.config(text = show_str)
         else:
             alert_data_label.config(text = "None. Have a Sunny Day.")
 
