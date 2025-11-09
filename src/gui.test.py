@@ -1,6 +1,6 @@
 import tkinter as tk
 import geocoder
-from api_caller import Api_Caller
+from api_caller import Meteo_Caller, WeatherBit_Caller
 
 class MyTkinterApp:
     def __init__(self, master):
@@ -17,7 +17,7 @@ class MyTkinterApp:
         self.button.pack(pady=10)
 
     def on_button_click(self):
-        api = Api_Caller()
+        api = Meteo_Caller()
         g = geocoder.ip('me')
         latlng = g.latlng
         self.label_text.set(api.request(latlng[0], latlng[1]))
