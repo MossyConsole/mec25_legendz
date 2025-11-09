@@ -58,7 +58,7 @@ def set_to_custom(custom, locText):
     if (getLoc == None):
         locText.config(text = "Couldn't set location with input: " + custom.get())
         return
-    file = open("location.txt", "w")
+    file = open("../sunny_data/location.txt", "w")
     file.write(str(getLoc.latitude))
     file.write(";")
     file.write(str(getLoc.longitude))
