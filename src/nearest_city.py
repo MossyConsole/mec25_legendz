@@ -27,11 +27,11 @@ def list_of_nearby_areas_with_api(lat, longi, list, ttk, tab):
             print(data)
             if not(location in list):
                 if data["alerts"] != []:
-                    m = ttk.Label(tab, text = str(location) + " " + data["alerts"][0]["severity"], font=("Browallia new", 8))
+                    m = ttk.Label(tab, text = str(location) + " "*(60-str(location)) + data["alerts"][0]["severity"], font=("Browallia new", 8))
                     m.pack(padx=100, pady=4)
                     m.update_idletasks()
                 else:
-                    m = ttk.Label(tab, text = str(location) + " " + "Safe", font=("Browallia new", 8))
+                    m = ttk.Label(tab, text = str(location) + " "*(60-str(location)) + "Safe", font=("Browallia new", 8))
                     m.pack(padx=100, pady=4)
                     m.update_idletasks()
                 list.append(location)
