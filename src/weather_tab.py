@@ -73,7 +73,6 @@ def weather_tab(ttk, tab):
         alerts_label.config(text = "Alerts:")
 
         alerts = data["alerts"] 
-        alert_data_label.config(text = "")
         if (len(alerts) != 0):
             for alert in alerts:
 
@@ -105,7 +104,7 @@ def weather_tab(ttk, tab):
                             Regions:{regions_str}\n
                             {desc_str}"""
                     
-                alert_data_label.config(text = alert_data_label.text + show_str)
+                alert_data_label.config(text =  show_str)
         else:
             alert_data_label.config(text = "None. Have a Sunny Day.")
 
