@@ -54,8 +54,7 @@ class WeatherBit_Caller:
             return None;
 
 
-api = WeatherBit_Caller()
-print(api.request(50, 50))
+
 
 # Setup the Open-Meteo API client with cache and retry on error
 
