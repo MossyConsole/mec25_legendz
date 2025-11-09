@@ -20,12 +20,9 @@ def list_of_nearby_areas_with_api(lat, longi, list, ttk, tab):
     #checks area around location for around 1 hour
     for i in range(-1, 2, 1):
         for j in range(-1, 2, 1):
-            print(i, j)
             location = loc.reverse(str(i/2+lat) + ", " + str(j/2+longi))
             data = api.request(i/2+lat, j/2+longi)
-            print(location)
-            print(data)
-            if not None or not(location in list):
+            if not (location == None) and not(location in list):
                 if data["alerts"] != []:
                     m = ttk.Label(tab, text = str(location) + " " + data["alerts"][0]["severity"], font=("Browallia new", 8), foreground = "red")
                     m.pack(padx=100, pady=4)
