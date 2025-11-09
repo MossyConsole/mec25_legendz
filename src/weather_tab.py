@@ -43,7 +43,7 @@ def weather_tab(ttk, tab):
     alerts_label = ttk.Label(tab, font = ("Browallia New", 16, "bold"))
     alerts_label.pack(padx=10, pady=10)
 
-    alert_data_label = ttk.Label(tab, anchor="w", justify="left")
+    alert_data_label = ttk.Label(tab, anchor="w")
     alert_data_label.pack(padx=10, pady=10, fill="x", anchor="w")
 
 
@@ -66,7 +66,7 @@ def weather_tab(ttk, tab):
         
         # Load JSON Data from file
         data_file = open("sunny_data/alert.txt", "r")
-        data = json.loads(str(data_file.read()).replace("\'", "\""))
+        data = json.loads(str(data_file.read()).replace("\'", "\"").replace("\\n", ""))
 
         # Parse and deal with data
         location_label.config(text = f"{data["city_name"]}, {data["country_code"]}")
@@ -82,7 +82,7 @@ def weather_tab(ttk, tab):
                 for region in alert["regions"]:
                     regions_str += f"\n\t\t{region.strip()}"
 
-                # Pro-process desc to a good string
+                # Pre-process desc to a good string
                 desc = alert["description"]
                 desc = desc.split("* ")
                 str_index = 0

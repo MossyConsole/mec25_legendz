@@ -1,6 +1,5 @@
 from geopy.geocoders import Nominatim
 from api_caller import WeatherBit_Caller
-import json
 
 
 def list_of_nearby_areas(lat, longi, list):
@@ -15,7 +14,6 @@ def list_of_nearby_areas(lat, longi, list):
 
 def list_of_nearby_areas_with_api(lat, longi, list, ttk, tab):
     api = WeatherBit_Caller()
-
 
     loc = Nominatim(user_agent="sunnyside_app")
     for i in range(-1, 2, 1):
@@ -41,12 +39,7 @@ def list_of_nearby_areas_with_api(lat, longi, list, ttk, tab):
 def nearest_tab(ttk, tab):
     ttk.Label(tab, 
             text = "Nearby Areas", font=("Browallia new", 24)).pack(padx=100, pady=(0,20))
-    ttk.Button(tab, text="Generate", command=lambda : nearest_city_create(ttk, tab)).pack(padx = "100", pady = 10)
-    
-
-    
-
-    
+    ttk.Button(tab, text="Generate", command=lambda : nearest_city_create(ttk, tab)).pack(padx = "100", pady = 10)  
 
 def nearest_city_create(ttk, tab):
     

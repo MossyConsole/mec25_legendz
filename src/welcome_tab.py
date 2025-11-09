@@ -10,7 +10,7 @@ def welcome_tab(ttk, tab):
             text = "Set Location", font=("Browallia new", 40)).pack(padx=100, pady=(0,100))
 
 
-    # Create the radio buttons
+    # Create the buttons
     custom = tk.StringVar()
     locText = ttk.Label(tab, 
             text = "You Havent Set Your Location", font=("Browallia new", 16))
